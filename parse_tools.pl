@@ -115,14 +115,16 @@ foreach (split(" ",$pce{'coupling'})) {
 $pce{'coupling'} = $new;
 $new = '';
 
-if ($channels && ($pce_lfes || $pce_channels)) {
-    if ($pce_lfes) {
-        if($channels ne "$pce_channels.$pce_lfes") {
-            $channels.= " / $pce_channels.$pce_lfes";
-        }
-    } else {
-        if($channels != $pce_channels) {
-            $channels.= " / $pce_channels";
+if ($channels) {
+    if ($pce_lfes || $pce_channels) {
+        if ($pce_lfes) {
+            if ($channels ne "$pce_channels.$pce_lfes") {
+                $channels.= " / $pce_channels.$pce_lfes";
+            }
+        } else {
+            if($channels != $pce_channels) {
+                $channels.= " / $pce_channels";
+            }
         }
     }
 } else {
