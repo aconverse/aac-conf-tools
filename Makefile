@@ -106,7 +106,7 @@ test_m2_main_mc: $(m2_am05)
 
 test_m2_adts: $(m2_adts)
 
-test_all: test_m2_stereo test_m2_mc test_pns test_m2_sbr_stereo test_m2_sbr_mc
+test_all: test_m2_stereo test_m2_mc test_pns test_m2_sbr_stereo test_m2_sbr_mc test_m2_main test_m2_main_mc test_m2_adts
 
 #Mono and Stereo non-PNS targets
 $(m2_stereo) $(m2_sbr_stereo) $(m2_main) : %:
