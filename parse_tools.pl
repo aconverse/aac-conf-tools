@@ -74,13 +74,13 @@ while (my $line = <STDIN>) {
 #inferred variables
 my $pceIndex = $pce{'sampling_rate_idx'};
 my $headerIndex = $header{'samplingFrequencyIndex'};
-    $samplingFreq = $samplingFreqTab[$headerIndex];
+    $samplingFreq = $headerIndex ne '' ? $samplingFreqTab[$headerIndex] : '';
 if ($pceIndex ne '' && $headerIndex != $pceIndex) {
     $samplingFreq .= " / ".$samplingFreqTab[$pceIndex];
 }
 
 $channels = $header{'channelConfiguration'};
-$channels = $chanConfigTab[$header{'channelConfiguration'}];
+$channels = $channels ne '' ? $chanConfigTab[$header{'channelConfiguration'}] : '';
 my $pce_channels = 0;
 my $pce_lfes = 0;
 my $new = '';
@@ -131,7 +131,7 @@ if ($channels) {
     $channels = $pce_channels . ($pce_lfes ? ".$pce_lfes" : "");
 }
 
-my $AOT = $AOTTab[$header{'audioObjectType'}];
+my $AOT = $header{'audioObjectType'} ne '' ? $AOTTab[$header{'audioObjectType'}] : '';
 if ($pce{'profile'} && $pce{'profile'}+1 != $header{'audioObjectType'}) {
     $AOT .= " / ".$AOTTab[$pce{'profile'}+1];
 }
