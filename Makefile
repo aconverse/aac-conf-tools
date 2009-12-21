@@ -25,6 +25,8 @@ m2_al07 = \
 al07_08 al07_11 al07_12 al07_16 al07_22 al07_24 al07_32 al07_44 al07_48 al07_64 al07_88 al07_96
 m2_al14 = \
 al14_08 al14_11 al14_12 al14_16 al14_22 al14_24 al14_32 al14_44 al14_48 al14_64 al14_88 al14_96
+m2_al15 = \
+$(m2_al00:al00%=al15%)
 m2_al17 = \
 al17_08 al17_11 al17_12 al17_16 al17_22 al17_24 al17_32 al17_44 al17_48 al17_64 al17_88 al17_96
 sbr_cm_stereo = \
@@ -60,7 +62,7 @@ m2_stereo = \
 $(m2_al00) $(m2_al01) $(m2_al02) $(m2_al04) $(m2_al05) $(m2_al14) $(m2_al17)
 
 m2_mc = \
-$(m2_al06) $(m2_al07)
+$(m2_al06) $(m2_al07) $(m2_al15)
 
 m2_sbr_stereo = \
 $(sbr_cm_stereo) $(sbr_e) $(sbr_gh) $(sbr_i_new) $(sbr_ps_new) $(sbr_qmf) $(sbr_s) $(sbr_sig02) $(sbr_sig1) $(sbr_sr) $(sbr_twi)
