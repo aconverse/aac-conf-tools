@@ -132,7 +132,7 @@ $(m2_adts): al%:
 	@echo "Conformance Vector $@"
 	@$(REFDEC) $(CONFVEC)/mpeg2aac-conformance/compressedAdts/$@.adts ref.wav
 	@$(SOX) ref.wav ref2.wav trim $(DELAY)
-	@$(FFMPEG) -i mpeg2aac-conformance/compressedAdts/$@.adts ff.wav
+	@$(FFMPEG) -i $(CONFVEC)/mpeg2aac-conformance/compressedAdts/$@.adts ff.wav
 	@$(SSNRCD) -t 7 -k 15 ref2.wav ff.wav
 
 #PNS-1
