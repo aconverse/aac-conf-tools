@@ -6,7 +6,7 @@ my %pce;
 my %header;
 my @headerTags = qw/audioObjectType samplingFrequencyIndex channelConfiguration/;
 my @toolsTags = qw/DSE DRC IS MS PulseData TNS WndShapeSW PNS DepCoup Pred IndCoup/;
-my @pceTags = qw/profile sampling_rate_idx front side back lfe coupling data.num_ele comment/;
+my @pceTags = qw/profile sampling_rate_idx front side back lfe coupling data.num_ele mono_mix.present stereo_mix.present matrix_mix.present comment/;
 my @samplingFreqTab = qw/96000 88200 64000 48000 44100 32000 24000 22050 16000 12000 11025 8000 7350 Undefined13 Undefined14 Escape/;
 my @chanConfigTab = ( 0, 1, 2, 3, 4, 5, 5.1, 7.1);
 my @AOTTab = qw/Null Main LC SSR LTP SBR/;
