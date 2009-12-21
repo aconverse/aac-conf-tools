@@ -141,16 +141,16 @@ print "| ";
 if ($name) {
     print "$name || ";
 }
-print "$AOT || ";
-print "$channels || ";
-print "$samplingFreq || ";
+print "$AOT";
+print " || $channels";
+print " || $samplingFreq";
 foreach $k (@headerTags) {
-   print "$header{$k} || ";
+   print " || $header{$k}";
 }
 foreach $k (@toolsTags) {
-   print "$tools{$k} || ";
+   print " || $tools{$k}";
 }
 foreach $k (@pceTags) {
-   print "$pce{$k} || "
+   print " || $pce{$k}"
 }
 print "\n";
