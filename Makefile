@@ -65,10 +65,10 @@ m2_mc = \
 $(m2_al06) $(m2_al07) $(m2_al15)
 
 m2_sbr_stereo = \
-$(sbr_cm_stereo) $(sbr_e) $(sbr_gh) $(sbr_i_new) $(sbr_ps_new) $(sbr_qmf) $(sbr_s) $(sbr_sig02) $(sbr_sig1) $(sbr_sr) $(sbr_twi)
+$(sbr_cm_stereo) $(sbr_e) $(sbr_gh) $(sbr_i_new) $(sbr_ps_new) $(sbr_qmf) $(sbr_s) $(sbr_sig02) $(sbr_sr) $(sbr_twi)
 
 m2_sbr_stereo_fail = \
-$(sbr_sig_1)
+$(sbr_sig1)
 
 m2_sbr_mc = \
 $(sbr_cm_mc)
