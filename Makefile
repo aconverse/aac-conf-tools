@@ -67,7 +67,7 @@ $(m2_al06) $(m2_al07) $(m2_al15)
 m2_sbr_stereo = \
 $(sbr_cm_stereo) $(sbr_e) $(sbr_gh) $(sbr_i_new) $(sbr_qmf) $(sbr_s) $(sbr_sig02) $(sbr_sr) $(sbr_twi)
 
-m2_sbr_stereo_fail = \
+m2_sbr_stereo_nbc = \
 $(sbr_sig1)
 
 m2_sbr_ps = \
