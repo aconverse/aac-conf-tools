@@ -65,10 +65,13 @@ m2_mc = \
 $(m2_al06) $(m2_al07) $(m2_al15)
 
 m2_sbr_stereo = \
-$(sbr_cm_stereo) $(sbr_e) $(sbr_gh) $(sbr_i_new) $(sbr_ps_new) $(sbr_qmf) $(sbr_s) $(sbr_sig02) $(sbr_sr) $(sbr_twi)
+$(sbr_cm_stereo) $(sbr_e) $(sbr_gh) $(sbr_i_new) $(sbr_qmf) $(sbr_s) $(sbr_sig02) $(sbr_sr) $(sbr_twi)
 
 m2_sbr_stereo_fail = \
 $(sbr_sig1)
+
+m2_sbr_ps = \
+$(sbr_ps_new)
 
 m2_sbr_mc = \
 $(sbr_cm_mc)
@@ -101,6 +104,7 @@ test_m2_mc: $(m2_mc)
 test_pns: $(m4_al18) $(m4_al19)
 
 test_m2_sbr_stereo: $(m2_sbr_stereo)
+test_m2_sbr_ps: $(m2_sbr_ps)
 test_m2_sbr_mc: $(m2_sbr_mc)
 
 test_m2_main: $(m2_main)
@@ -108,10 +112,10 @@ test_m2_main_mc: $(m2_am05)
 
 test_m2_adts: $(m2_adts)
 
-test_all: test_m2_stereo test_m2_mc test_pns test_m2_sbr_stereo test_m2_sbr_mc test_m2_main test_m2_main_mc test_m2_adts
+test_all: test_m2_stereo test_m2_mc test_pns test_m2_sbr_stereo test_m2_sbr_ps test_m2_sbr_mc test_m2_main test_m2_main_mc test_m2_adts
 
 #Mono and Stereo non-PNS targets
-$(m2_stereo) $(m2_sbr_stereo) $(m2_main) : %:
+$(m2_stereo) $(m2_sbr_stereo) $(m2_sbr_ps) $(m2_main) : %:
 	@rm -f *.wav
 	@echo "Conformance Vector $@"
 	@$(REFDEC) $(CONFVEC)/mpeg4audio-conformance/compressedMp4/$@.mp4 ref.wav
