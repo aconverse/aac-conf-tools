@@ -1,9 +1,12 @@
 SSNRCD  = $(HOME)/Projects/14496-5/x86/mpeg4audio/bin/conf_ssnrcd/Linux_gcc_O0d/ssnrcd
+SBRCONF = $(HOME)/Projects/14496-5/x86/mpeg4audio/bin/conf_sbr/Linux_isomp4_sbr_AFsp_gcc_O0d/sbr_conftool
 REFDEC  = $(HOME)/Projects/14496-5/x86/mpeg4audio/bin/mp4mcDec/Linux_isomp4_AFsp_gcc_O0d/mp4audec_mc
+REFDECSBR=$(HOME)/Projects/14496-5/x86/mpeg4audio/bin/mp4mcDec/Linux_isomp4_sbr_AFsp_gcc_O0d/mp4audec_mc
 PNSCONF = $(HOME)/Projects/14496-5/x86/mpeg4audio/bin/conf_pns/Linux_gcc_O0d/pnsConformance
 CONFVEC = $(HOME)/Projects/14496-4/
 FFMPEG  = $(HOME)/Projects/ffmpeg/ffmpeg/ffmpeg
-DELAY   = 1024s
+DELAY   = 0s
+DELAYSBR= 0s
 SOX     = sox
 
 
@@ -48,11 +51,11 @@ al_sbr_s_32_1 al_sbr_s_32_2 al_sbr_s_44_1 al_sbr_s_44_2 al_sbr_s_48_1 al_sbr_s_4
 sbr_sig02 = \
 al_sbr_sig_48_2_sig0 al_sbr_sig_48_2_sig2
 sbr_sig1 = \
-al_sbr_sig_24_2_fsaac24_sig1 al_sbr_sig_48_2_sig1 
+al_sbr_sig_48_2_sig1 al_sbr_sig_24_2_fsaac24_sig1
 sbr_sr = \
-al_sbr_sr_16_2_fsaac08 al_sbr_sr_16_2_fsaac16 al_sbr_sr_22_2_fsaac11 al_sbr_sr_22_2_fsaac22 al_sbr_sr_24_2_fsaac12 al_sbr_sr_24_2_fsaac24 al_sbr_sr_32_2_fsaac16 al_sbr_sr_32_2_fsaac32 al_sbr_sr_44_2_fsaac22 al_sbr_sr_44_2_fsaac44 al_sbr_sr_48_2_fsaac24 al_sbr_sr_48_2_fsaac48 al_sbr_sr_64_2_fsaac32 al_sbr_sr_88_2_fsaac44 al_sbr_sr_96_2_fsaac48
+al_sbr_sr_16_2_fsaac08 al_sbr_sr_22_2_fsaac11 al_sbr_sr_24_2_fsaac12 al_sbr_sr_32_2_fsaac16 al_sbr_sr_44_2_fsaac22 al_sbr_sr_48_2_fsaac24 al_sbr_sr_64_2_fsaac32 al_sbr_sr_88_2_fsaac44 al_sbr_sr_96_2_fsaac48 al_sbr_sr_16_2_fsaac16 al_sbr_sr_22_2_fsaac22 al_sbr_sr_24_2_fsaac24 al_sbr_sr_32_2_fsaac32 al_sbr_sr_44_2_fsaac44 al_sbr_sr_48_2_fsaac48
 sbr_twi = \
-al_sbr_twi_22_1_fsaac22 al_sbr_twi_48_1_fsaac24
+al_sbr_twi_48_1_fsaac24 al_sbr_twi_22_1_fsaac22 
 m4_al18 = \
 al18_08 al18_11 al18_12 al18_16 al18_22 al18_24 al18_32 al18_44 al18_48 al18_64 al18_88 al18_96
 m4_al19 = \
@@ -66,6 +69,8 @@ $(m2_al06) $(m2_al07) $(m2_al15)
 
 m2_sbr_stereo = \
 $(sbr_cm_stereo) $(sbr_e) $(sbr_gh) $(sbr_i_new) $(sbr_qmf) $(sbr_s) $(sbr_sig02) $(sbr_sr) $(sbr_twi)
+
+m2_sbr_mono = $(filter %_1 %_1_new, $(m2_sbr_stereo))
 
 m2_sbr_stereo_nbc = \
 $(sbr_sig1)
@@ -103,7 +108,9 @@ test_m2_stereo: $(m2_stereo)
 test_m2_mc: $(m2_mc)
 test_pns: $(m4_al18) $(m4_al19)
 
+test_m2_sbr_mono: $(m2_sbr_mono)
 test_m2_sbr_stereo: $(m2_sbr_stereo)
+test_m2_sbr_stereo_nbc: $(m2_sbr_stereo_nbc)
 test_m2_sbr_ps: $(m2_sbr_ps)
 test_m2_sbr_mc: $(m2_sbr_mc)
 
@@ -115,7 +122,7 @@ test_m2_adts: $(m2_adts)
 test_all: test_m2_stereo test_m2_mc test_pns test_m2_sbr_stereo test_m2_sbr_ps test_m2_sbr_mc test_m2_main test_m2_main_mc test_m2_adts
 
 #Mono and Stereo non-PNS targets
-$(m2_stereo) $(m2_sbr_stereo) $(m2_sbr_ps) $(m2_main) : %:
+$(m2_stereo) $(m2_main) : %:
 	@rm -f *.wav
 	@echo "Conformance Vector $@"
 	@$(REFDEC) $(CONFVEC)/mpeg4audio-conformance/compressedMp4/$@.mp4 ref.wav
@@ -123,10 +130,27 @@ $(m2_stereo) $(m2_sbr_stereo) $(m2_sbr_ps) $(m2_main) : %:
 	@$(FFMPEG) -i $(CONFVEC)/mpeg4audio-conformance/compressedMp4/$@.mp4 ff.wav
 	@$(SSNRCD) -t 7 -k 15 ref2.wav ff.wav
 
-$(m2_mc) $(m2_sbr_mc) $(m2_am05): %:
+$(m2_sbr_stereo) $(m2_sbr_stereo_nbc) $(m2_sbr_ps) : %:
+	@rm -f *.wav
+	@echo "Conformance Vector $@"
+	@$(REFDECSBR) $(CONFVEC)/mpeg4audio-conformance/compressedMp4/$@.mp4 ref.wav
+	#@$(SOX) ref.wav ref2.wav trim $(DELAYSBR)
+	@$(FFMPEG) -i $(CONFVEC)/mpeg4audio-conformance/compressedMp4/$@.mp4 ff.wav
+	@$(SSNRCD) -t 7 -k 12 ref.wav ff.wav
+	@$(SBRCONF) $(CONFVEC)/mpeg4audio-conformance/compressedMp4/$@.mp4 ff.wav
+
+$(m2_mc) $(m2_am05): %:
 	@rm -f *.wav
 	@echo "Conformance Vector $@"
 	@$(REFDEC) $(CONFVEC)/mpeg4audio-conformance/compressedMp4/$@.mp4 ref.wav
+	@bash -c "shopt -s nullglob && $(SOX) -M ref_f*.wav ref_s*.wav ref_l*.wav ref_b*.wav ref2.wav trim $(DELAY)"
+	@$(FFMPEG) -i $(CONFVEC)/mpeg4audio-conformance/compressedMp4/$@.mp4 ff.wav
+	@$(SSNRCD) -t 7 -k 15 ref2.wav ff.wav
+
+$(m2_sbr_mc): %:
+	@rm -f *.wav
+	@echo "Conformance Vector $@"
+	@$(REFDECSBR) $(CONFVEC)/mpeg4audio-conformance/compressedMp4/$@.mp4 ref.wav
 	@bash -c "shopt -s nullglob && $(SOX) -M ref_f*.wav ref_s*.wav ref_l*.wav ref_b*.wav ref2.wav trim $(DELAY)"
 	@$(FFMPEG) -i $(CONFVEC)/mpeg4audio-conformance/compressedMp4/$@.mp4 ff.wav
 	@$(SSNRCD) -t 7 -k 15 ref2.wav ff.wav
